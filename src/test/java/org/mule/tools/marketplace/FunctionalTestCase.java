@@ -22,9 +22,13 @@
 
 package org.mule.tools.marketplace;
 
+import java.util.Map;
+
 import org.mule.api.MuleMessage;
 import org.mule.api.client.MuleClient;
 import org.mule.transport.NullPayload;
+import org.mule.transport.http.HttpConstants;
+import org.apache.commons.collections.map.SingletonMap;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -42,13 +46,13 @@ public class FunctionalTestCase extends org.mule.tck.junit4.FunctionalTestCase
     public void testCofiguration() throws Exception
     {
     	MuleClient client = muleContext.getClient();
-        client.dispatch("vm://in", "some data", null);
-        MuleMessage result = client.request("vm://out", RECEIVE_TIMEOUT);
+    	@SuppressWarnings("unchecked")
+        Map<String, Object> props = new SingletonMap("http.method", HttpConstants.METHOD_GET);
+        MuleMessage result = client.send("http://localhost:8083/marketplace/", null, props);
         assertNotNull(result);
         assertNull(result.getExceptionPayload());
         assertFalse(result.getPayload() instanceof NullPayload);
 
-        //TODO Assert the correct data has been received
-        assertEquals("some data Received", result.getPayloadAsString());
+        
     }
 }

@@ -191,6 +191,12 @@
 			<artifactId>mule-core</artifactId>
 			<version>${mule.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- Xml configuration -->
 		<dependency>
@@ -237,12 +243,23 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
-<!-- Mule Modules -->
+		<!-- Mule Modules -->
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-client</artifactId>
 			<version>${mule.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-logging</artifactId>
+			<version>${mule.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
@@ -274,7 +291,20 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
-	<!-- for testing -->
+		<!-- for testing -->
+		<dependency>
+			<groupId>org.mule.tests</groupId>
+			<artifactId>mule-tests-functional</artifactId>
+			<version>${mule.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- for testing -->
 		<dependency>
 			<groupId>org.mule.tests</groupId>
 			<artifactId>mule-tests-functional</artifactId>
